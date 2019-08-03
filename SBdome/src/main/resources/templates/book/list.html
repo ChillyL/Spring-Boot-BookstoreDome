@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments :: head(title=~{::title/text()})">
+        <!--定义字符集-->
+        <meta charset="UTF-8"/>
+		<title>Messages : View all Books</title>
+	</head>
+	<body>
+		<div class="container">
+            <!--  语法说明  "::"前面是模板文件名，后面是选择器
+                  替换当前标签为模板中的标签，加载的节点会整个替换掉加载他的div-->
+			<div th:replace="fragments :: navbar"></div>
+			<div class="float-right mt-2">
+				<a class="btn btn-primary btn-sm" href="/book/toAddBook" th:href="@{/book/toAddBook}">Add Book</a>
+			</div>
+			<h4 class="float-left mt-2">Messages : View all Books</h4>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>BookName</th>
+						<th>BookIntro</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${books.empty}">
+						<td colspan="3">No book</td>
+					</tr>
+                    <tr  th:each="book : ${books}">
+                        <th scope="row" th:text="${book.id}">1</th>
+                        <td th:text="${book.bookname}">这是书的名字</td>
+                        <td th:text="${book.bookintro}">这是书的简介</td>
+                        <td><a th:href="@{/book/toUpdateBookById(id=${book.id})}">edit</a></td>
+                        <td><a th:href="@{/book/deleteBookById(id=${book.id})}">delete</a></td>
+                    </tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

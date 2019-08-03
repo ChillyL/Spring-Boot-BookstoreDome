@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--使用thymeleaf必须在HTML标签里加 xmlns:th="http://www.thymeleaf.org"> -->
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:fragment="head (title)">
+		<title th:text="${title}">Fragments</title>
+        <!--链接一个外部样式表-->
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+			href="../../css/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class="container">
+            <!--共有的导航栏navbar-->
+			<nav th:fragment="navbar" class="navbar navbar-dark bg-primary">
+				<a class="navbar-brand">Bookstore</a>
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					<li class="nav-item"><font class="nav-link">Chilly Lin</font></li>
+				</ul>
+			</nav>
+		</div>
+	</body>
+</html>

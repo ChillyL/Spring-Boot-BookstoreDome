@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments :: head(title=~{::title/text()})">
+        <!--定义字符集-->
+        <meta charset="UTF-8"/>
+        <title>Messages : Add Book</title>
+    </head>
+    <body class="container">
+        <div th:replace="fragments :: navbar"></div>
+
+        <div class="float-right mt-2">
+            <a class="btn btn-primary btn-sm" href="/book/getAllBook" th:href="@{/book/getAllBook}">Back</a>
+        </div>
+        <h4 class="float-left mt-2">Messages : View all Books</h4>
+
+        <div class="with:80%">
+            <form class="form-horizontal"   th:action="@{/book/addBook}"   method="post">
+
+                <table class="table table-bordered table-striped" >
+
+                    <tr>
+                        <th>BookName</th>
+                        <td><input type="text" class="form-control" name="bookname"  id="bookname"  placeholder="书名"/></td>
+                    </tr>
+                    <tr>
+                        <th>BookIntro</th>
+                        <td><input type="text" class="form-control" name="bookintro" id="bookintro"  placeholder="简介"/></td>
+                    </tr>
+                </table>
+
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" value="add" class="btn btn-primary btn-sm" />
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

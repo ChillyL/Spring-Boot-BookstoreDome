@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(title=~{::title/text()})">
+    <!--定义字符集-->
+    <meta charset="UTF-8"/>
+    <title>Messages : Edit Book</title>
+</head>
+<body class="container">
+<div class="with:80%">
+    <div th:replace="fragments :: navbar"></div>
+    <h4 class="float-left mt-2">Messages : Edit Book</h4>
+
+    <form class="form-horizontal"   th:action="@{/book/updateBookById}" th:object="${book}"  method="post">
+        <input type="hidden" name="id" th:value="*{id}" />
+
+        <table class="table table-bordered table-striped" >
+
+            <tr>
+                <th>BookName</th>
+                <td><input type="text" class="form-control" name="bookname"  id="bookname" th:value="*{bookname}" placeholder="新书名"/></td>
+            </tr>
+            <tr>
+                <th>BookIntro</th>
+                <td><input type="test" class="form-control" name="bookintro" id="bookintro"  th:value="*{bookintro}" placeholder="新简介"/></td>
+            </tr>
+        </table>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="Submit" class="btn btn-primary btn-sm" />
+                &nbsp; &nbsp; &nbsp;
+                <a class="btn btn-primary btn-sm" href="/book/getAllBook" th:href="@{/book/getAllBook}">Back</a>
+            </div>
+
+        </div>
+    </form>
+</div>
+</body>
+</html>

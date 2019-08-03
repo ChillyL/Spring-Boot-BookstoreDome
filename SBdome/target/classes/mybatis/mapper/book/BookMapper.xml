@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chilly.demo.mapper.book.BookMapper"><!--java的XXXmapper路径-->
+    <!--<resultMap id="唯一的标识"（自己起名字） type="映射的pojo对象"(实体类路径)>-->
+    <resultMap id="theResultMap" type="com.chilly.demo.entity.Book">
+        <!--id column="表的主键字段，或者可以为查询语句中的别名字段" jdbcType="字段类型"(VARCHAR) property="映射pojo对象的主键属性") -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <!--result column="表的一个字段（可以为任意表的一个字段）" jdbcType="字段类型" property="映射到pojo对象的一个属性（须为type定义的pojo对象中的一个属性）"-->
+        <result column="bookname" property="bookname" jdbcType="VARCHAR"/>
+        
+        <result column="bookintro" property="bookintro" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">-->
+    <select id="getAllBook" resultMap="theResultMap" >
+        select *
+        FROM book
+    </select>
+
+    <insert id="addBook" parameterType="com.chilly.demo.entity.Book" >
+        <!-- oracle等不支持id自增长的，可根据其id生成策略，先获取id
+               <selectKey resultType="int" order="BEFORE" keyProperty="id">
+                     select seq_user_id.nextval as id from dual
+               </selectKey>
+            -->
+
+        <!-- mysql插入数据后，获取id -->
+        <selectKey keyProperty="id" resultType="int" order="AFTER" >
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        insert into book (bookname,bookintro)
+        values (#{bookname},#{bookintro});
+    </insert>
+
+    <delete id="deleteBookById" parameterType="int">
+        delete from book
+        where id =#{id};
+    </delete>
+    
+    <update id="updateBookById" parameterType="com.chilly.demo.entity.Book">
+        update book
+        set 
+        <if test="bookname != null">bookname =#{bookname},</if>
+        <if test="bookintro != null">bookintro =#{bookintro}</if>
+        where id =#{id}
+    </update>
+
+    <select id="findBookById" parameterType="int" resultType="com.chilly.demo.entity.Book">
+        select *
+        from book
+        where id =#{id}
+    </select>
+
+</mapper>
